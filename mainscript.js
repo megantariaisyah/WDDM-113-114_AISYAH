@@ -30,16 +30,16 @@ var myfullName = firstName + " " + lastName;
 
 console.log("Hello, Let Me Introduce My Self")
 console.log("First Name: " + firstName + "," + " Last Name: " + lastName);
-console.log ("My Full Name is " + myfullName);
+console.log("My Full Name is " + myfullName);
 
-console.log("X: " + x + "\n" + "z:" +z);
+console.log("X: " + x + "\n" + "z:" + z);
 
 
 //incrementNum//
 
 let incrementNum = 0;
 
-console.log ("the number: " + incrementNum);
+console.log("the number: " + incrementNum);
 
 incrementNum++;
 
@@ -58,17 +58,42 @@ console.log("Nice to meet you" + " " + thankyou);
 
 // BUTTONS //
 
-const myBtn = document.getElementById ("myBtn");
+// const myBtn = document.getElementById("myBtn");
 
-myBtn.addEventListener ("click" , function (e) {
-console.log ("This Button Was Clicked!!");
+// myBtn.addEventListener("click", function (e) {
+//     console.log("This Button Was Clicked!!");
 
-const Name = prompt ("What is your name");
+//     const Name = prompt("What is your name");
 
-console.log (Name)
+//     console.log(Name)
 
-document.getElementById('output').innerHTML = "Welcome, " + Name + "!";
-});
+//     document.getElementById('output').innerHTML = "Welcome, " + Name + "!";
+// });
+// Added listeners for loading each page
+const contentDiv = document.getElementById("content");
+
+function loadPage(route) {
+    console.log('load page called', route)
+    fetch(`${route}.html`)
+        .then((response) => response.text())
+        .then((data) => {
+            contentDiv.innerHTML = data;
+        })
+        .catch((error) => {
+            contentDiv.innerHTML = "Page not found";
+        });
+}
+
+function handleRouteChange() {
+    const route = window.location.hash.slice(2); // Remove the '#/' from the hash
+    loadPage(route);
+}
+
+// Initial page load or when the hash changes
+if (window) {
+    window.addEventListener("load", handleRouteChange);
+    window.addEventListener("hashchange", handleRouteChange);
+}
 
 
 
